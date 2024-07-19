@@ -12,18 +12,18 @@ Projeto realizado durante a  16ª edição do Next Level Week, uma semana de aul
 
 ## ✔️ Técnicas e tecnologias utilizadas
 
-- ``Java 22``
-- ``InteliJ IDEA``
-- ``Paradigma de orientação a objetos``
+- [Java 22](https://www.oracle.com/java/technologies/javase-downloads.html)
+- [IntelliJ IDEA](https://www.jetbrains.com/idea/)
+- [Paradigma de orientação a objetos](https://en.wikipedia.org/wiki/Object-oriented_programming)
 
 ## 📦 Dependências
 
-- ``Spring Web``
-- ``Flyway``
-- ``Dev Tools``
-- ``Lombok``
-- ``JPA``
-- ``H2 Database``
+- [Spring Web](https://spring.io/projects/spring-web)
+- [Flyway](https://flywaydb.org/)
+- [Dev Tools](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#using-boot-devtools)
+- [Lombok](https://projectlombok.org/)
+- [JPA](https://www.oracle.com/java/technologies/persistence-jsp.html)
+- [H2 Database](https://www.h2database.com/html/main.html)
 
 ## 📁 Acesso ao projeto
 Você pode acessar os arquivos do projeto clicando [aqui](https://github.com/JG-OLIVEIRA/planner-backend/tree/master/src).
