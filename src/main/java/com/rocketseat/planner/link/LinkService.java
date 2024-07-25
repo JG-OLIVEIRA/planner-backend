@@ -11,17 +11,19 @@ import com.rocketseat.planner.trip.Trip;
 @Service
 public class LinkService {
 
+    private final LinkRepository repository;
+
     @Autowired
-    private LinkRepository repository;
+    public LinkService(LinkRepository repository){
+        this.repository = repository;
+    }
 
-    public LinkResponse registerLink(LinkRequestPayload payload, Trip trip){
-        Link newLink = new Link(payload.title(), payload.url(), trip);
-
-        this.repository.save(newLink);
-
+    public LinkResponse register(LinkRequestPayload payload, Trip trip){
+        Link newLink = repository.save(new Link(payload.title(), payload.url(), trip));
         return new LinkResponse(newLink.getId());
     }
     public List<LinkData> getAllLinksFromTrip(UUID tripId){
-        return this.repository.findByTripId(tripId).stream().map(link -> new LinkData(link.getId(), link.getTitle(), link.getUrl())).toList();
+        return repository.findByTripId(tripId).stream().map(link -> new LinkData(link.getId(), link.getTitle(), link.getUrl())).toList();
     }
+
 }

@@ -25,5 +25,24 @@ Projeto realizado durante a  16ª edição do Next Level Week, uma semana de aul
 - [JPA](https://www.oracle.com/java/technologies/persistence-jsp.html)
 - [H2 Database](https://www.h2database.com/html/main.html)
 
+## Features Extras
+
+- [ ] Adicionar uma validação nos campos de data
+   - [ ] A data de começo da viagem é inferior à data de término da viagem
+   - [ ] A data de uma atividade está entre as datas da viagem
+
+     **Exemplo:**
+     Viagem entre os dias 20 a 25 de julho no Rio de Janeiro
+
+     ⇒ Atividade 19 de julho
+
+     ⇒ Atividade 21 de julho
+
+- [x] Extração do core das trips para dentro de uma classe Service
+- [ ] Mapeamento das exceções da aplicação
+   - [ ] Tratativas de erro personalizadas
+- [ ] Adicionar testes unitários e integração com o GitHub Actions
+
+
 ## 📁 Acesso ao projeto
 Você pode acessar os arquivos do projeto clicando [aqui](https://github.com/JG-OLIVEIRA/planner-backend/tree/master/src).
