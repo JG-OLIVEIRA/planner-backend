@@ -10,40 +10,32 @@ import java.util.UUID;
 @Service
 public class TripService {
 
-    @Autowired
-    private TripRepository repository;
+    private final TripRepository repository;
 
-    public Trip createTrip(Trip newTrip){
-        repository.save(newTrip);
-        return newTrip;
+    @Autowired
+    public TripService(TripRepository repository){
+        this.repository = repository;
     }
 
-    public Optional<Trip> getTripById(UUID id){
+    public Trip register(Trip newTrip){
+        return repository.save(newTrip);
+    }
+
+    public Optional<Trip> getById(UUID id){
         return repository.findById(id);
     }
 
-    public Trip updateTrip(
-            Trip rawTrip,
-            LocalDateTime ends_at,
-            LocalDateTime starts_at,
-            String destination
-    ){
+    public Trip update(Trip rawTrip, LocalDateTime ends_at, LocalDateTime starts_at, String destination){
         rawTrip.setEndsAt(ends_at);
         rawTrip.setStartsAt(starts_at);
         rawTrip.setDestination(destination);
 
-        repository.save(rawTrip);
-
-        return rawTrip;
+        return repository.save(rawTrip);
     }
 
-    public Trip updateTripStatus(Trip rawTrip){
+    public Trip setIsConfirmedTrue(Trip rawTrip){
         rawTrip.setIsConfirmed(true);
-
-        repository.save(rawTrip);
-
-        return rawTrip;
+        return repository.save(rawTrip);
     }
-
 
 }
