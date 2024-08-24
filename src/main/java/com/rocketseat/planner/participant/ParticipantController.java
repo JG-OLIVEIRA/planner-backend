@@ -18,7 +18,7 @@ public class ParticipantController {
     }
 
     @PostMapping("/{id}/confirm")
-    public ResponseEntity<Participant> confirmParticipant(@PathVariable UUID id, @RequestBody ParticipantRequestPayload payload){
+    public ResponseEntity<Participant> confirmParticipant(@PathVariable String id, @RequestBody ParticipantRequestPayload payload){
         return participantService.getById(id)
                 .map(participant -> {
                     Participant updatedParticipant = participantService.setIsConfirmedTrue(participant, payload.name());

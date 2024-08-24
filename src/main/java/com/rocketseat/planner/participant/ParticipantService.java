@@ -23,7 +23,7 @@ public class ParticipantService {
         repository.saveAll(participants);
     }
 
-    public Optional<Participant> getById(UUID id){
+    public Optional<Participant> getById(String id){
         return repository.findById(id);
     }
 
@@ -32,11 +32,11 @@ public class ParticipantService {
         return new ParticipantCreateResponse(newParticipant.getId());
     }
 
-    public void triggerConfirmationEmailToParticipants(UUID tripId){}
+    public void triggerConfirmationEmailToParticipants(String tripId){}
 
     public void triggerConfirmationEmailToParticipant(String email) {}
 
-    public List<ParticipantData> getAllParticipantsFromEvent(UUID tripId) {
+    public List<ParticipantData> getAllParticipantsFromEvent(String tripId) {
         return repository.findByTripId(tripId).stream().map(participant -> new ParticipantData(participant.getId(), participant.getName(), participant.getEmail(), participant.getIsConfirmed())).toList();
     }
 

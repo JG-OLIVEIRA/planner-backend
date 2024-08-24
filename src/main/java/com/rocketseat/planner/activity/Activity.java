@@ -20,8 +20,7 @@ import java.util.UUID;
 public class Activity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    private String id;
 
     @Column(nullable = false)
     private String title;
@@ -34,6 +33,7 @@ public class Activity {
     private Trip trip;
 
     public Activity(String title, String occursAt, Trip trip){
+        this.id = UUID.randomUUID().toString();
         this.title = title;
         this.occursAt = LocalDateTime.parse(occursAt, DateTimeFormatter.ISO_DATE_TIME);
         this.trip = trip;

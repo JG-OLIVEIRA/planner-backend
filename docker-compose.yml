@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+
+  db:
+    image: mysql:8.3.0
+    container_name: com_rocketseat_planner_db
+    environment:
+      MYSQL_DATABASE: ${DB_NAME:-planner}
+      MYSQL_USER: ${DB_USER:-planner}
+      MYSQL_PASSWORD: ${DB_PASS:-planner}
+      MYSQL_ROOT_PASSWORD: ${DB_PASS:-planner}
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: com_rocketseat_planner_app
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:${DB_DIALECT:-mysql}://db:${DB_PORT:-3306}/${DB_NAME:-planner}?useSSL=false&useTimezone=true&serverTimezone=UTC&enabledTLSProtocols=TLSv1.2
+      SPRING_DATASOURCE_USERNAME: ${DB_USER:-planner}
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASS:-planner}
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+
+volumes:
+  mysql-data:
