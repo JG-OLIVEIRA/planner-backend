@@ -3,7 +3,6 @@ package com.rocketseat.planner.trip;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -57,12 +56,12 @@ public class TripController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Trip> getTripById(@PathVariable UUID id){
+    public ResponseEntity<Trip> getTripById(@PathVariable String id){
         return tripService.getById(id).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Trip> updateTrip(@PathVariable UUID id, @RequestBody TripRequestPayload payload){
+    public ResponseEntity<Trip> updateTrip(@PathVariable String id, @RequestBody TripRequestPayload payload){
         return tripService.getById(id)
                 .map(trip -> {
                     LocalDateTime ends_at = LocalDateTime.parse(payload.ends_at(), DateTimeFormatter.ISO_DATE_TIME);
@@ -76,7 +75,7 @@ public class TripController {
     }
 
     @GetMapping("/{id}/confirm")
-    public ResponseEntity<Trip> confirmTrip(@PathVariable UUID id){
+    public ResponseEntity<Trip> confirmTrip(@PathVariable String id){
         return tripService.getById(id)
                 .map(trip -> {
                     participantService.triggerConfirmationEmailToParticipants(id);
@@ -87,7 +86,7 @@ public class TripController {
 
     //Activity
     @PostMapping("/{id}/activities")
-    public ResponseEntity<ActivityResponse> createActivity(@PathVariable UUID id, @RequestBody ActivityRequestPayload payload) {
+    public ResponseEntity<ActivityResponse> createActivity(@PathVariable String id, @RequestBody ActivityRequestPayload payload) {
         return tripService.getById(id)
                 .map(trip -> {
                     ActivityResponse activityResponse = activityService.register(payload, trip);
@@ -96,7 +95,7 @@ public class TripController {
     }
 
     @GetMapping("/{id}/activities")
-    public ResponseEntity<List<ActivityData>> getAllActivities(@PathVariable UUID id){
+    public ResponseEntity<List<ActivityData>> getAllActivities(@PathVariable String id){
         List<ActivityData> activities = activityService.getAllActivitiesFromId(id);
 
         if(activities.isEmpty()){
@@ -108,7 +107,7 @@ public class TripController {
 
     //Participant
     @GetMapping("/{id}/participants")
-    public ResponseEntity<List<ParticipantData>> getAllParticipants(@PathVariable UUID id){
+    public ResponseEntity<List<ParticipantData>> getAllParticipants(@PathVariable String id){
         List<ParticipantData> participants = participantService.getAllParticipantsFromEvent(id);
 
         if(participants.isEmpty()){
@@ -119,7 +118,7 @@ public class TripController {
     }
 
     @PostMapping("/{id}/invite")
-    public ResponseEntity<ParticipantCreateResponse> inviteParticipant(@PathVariable UUID id, @RequestBody ParticipantRequestPayload payload) {
+    public ResponseEntity<ParticipantCreateResponse> inviteParticipant(@PathVariable String id, @RequestBody ParticipantRequestPayload payload) {
         return tripService.getById(id)
                 .map(trip -> {
                     ParticipantCreateResponse participantResponse = participantService.registerParticipantToEvent(payload.email(), trip);
@@ -134,7 +133,7 @@ public class TripController {
 
     //Link
     @PostMapping("/{id}/links")
-    public ResponseEntity<LinkResponse> createLink(@PathVariable UUID id, @RequestBody LinkRequestPayload payload) {
+    public ResponseEntity<LinkResponse> createLink(@PathVariable String id, @RequestBody LinkRequestPayload payload) {
         return tripService.getById(id)
                 .map(trip -> {
                     LinkResponse linkResponse = linkService.register(payload, trip);
@@ -144,7 +143,7 @@ public class TripController {
     }
 
     @GetMapping("/{id}/links")
-    public ResponseEntity<List<LinkData>> getAllLinks(@PathVariable UUID id) {
+    public ResponseEntity<List<LinkData>> getAllLinks(@PathVariable String id) {
         List<LinkData> links = linkService.getAllLinksFromTrip(id);
 
         if (links.isEmpty()) {

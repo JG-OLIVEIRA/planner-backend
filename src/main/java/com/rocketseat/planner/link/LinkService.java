@@ -1,7 +1,6 @@
 package com.rocketseat.planner.link;
 
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,7 +21,7 @@ public class LinkService {
         Link newLink = repository.save(new Link(payload.title(), payload.url(), trip));
         return new LinkResponse(newLink.getId());
     }
-    public List<LinkData> getAllLinksFromTrip(UUID tripId){
+    public List<LinkData> getAllLinksFromTrip(String tripId){
         return repository.findByTripId(tripId).stream().map(link -> new LinkData(link.getId(), link.getTitle(), link.getUrl())).toList();
     }
 

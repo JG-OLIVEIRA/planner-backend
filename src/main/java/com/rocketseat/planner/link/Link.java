@@ -26,8 +26,7 @@ import lombok.Setter;
 public class Link {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    private String id;
 
     @Column(nullable = false)
     private String url;
@@ -40,6 +39,7 @@ public class Link {
     private Trip trip;
 
     public Link(String title, String url, Trip trip){
+        this.id = UUID.randomUUID().toString();
         this.title = title;
         this.url = url;
         this.trip = trip;

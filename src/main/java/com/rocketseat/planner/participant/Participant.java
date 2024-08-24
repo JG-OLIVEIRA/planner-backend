@@ -18,8 +18,7 @@ import java.util.UUID;
 public class Participant {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    private String id;
 
     @Column(name = "is_Confirmed", nullable = false)
     private Boolean isConfirmed;
@@ -35,6 +34,7 @@ public class Participant {
     private Trip trip;
 
     public Participant(String email, Trip trip){
+        this.id = UUID.randomUUID().toString();
         this.email = email;
         this.trip = trip;
         this.isConfirmed = false;

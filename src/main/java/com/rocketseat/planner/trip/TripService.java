@@ -21,7 +21,7 @@ public class TripService {
         return repository.save(newTrip);
     }
 
-    public Optional<Trip> getById(UUID id){
+    public Optional<Trip> getById(String id){
         return repository.findById(id);
     }
 

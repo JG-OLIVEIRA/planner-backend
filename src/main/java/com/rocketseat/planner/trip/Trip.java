@@ -19,8 +19,7 @@ import java.util.UUID;
 public class Trip {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    private String id;
 
     @Column(nullable = false)
     private String destination;
@@ -41,6 +40,7 @@ public class Trip {
     private String ownerEmail;
 
     public Trip(TripRequestPayload data){
+        this.id = UUID.randomUUID().toString();
         this.destination = data.destination();
         this.isConfirmed = false;
         this.ownerName = data.owner_name();
