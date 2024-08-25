@@ -4,5 +4,3 @@ spring:
     url: ${DB_URL}
     username: ${DB_USER}
     password: ${DB_PASS}
-  jpa:
-    database-platform: ${DB_HIBERNATE_DIALECT}
