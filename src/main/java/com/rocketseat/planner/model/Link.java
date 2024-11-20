@@ -19,7 +19,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class LinkEntity {
+public class Link {
 
     @Id
     private String id;
@@ -32,12 +32,12 @@ public class LinkEntity {
 
     @ManyToOne
     @JoinColumn(name = "trip_id", nullable = false)
-    private TripEntity tripEntity;
+    private Trip trip;
 
-    public LinkEntity(String title, String url, TripEntity tripEntity){
+    public Link(String title, String url, Trip trip){
         this.id = UUID.randomUUID().toString();
         this.title = title;
         this.url = url;
-        this.tripEntity = tripEntity;
+        this.trip = trip;
     }
 }

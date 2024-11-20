@@ -14,7 +14,7 @@ import java.util.UUID;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ParticipantEntity {
+public class Participant {
 
     @Id
     private String id;
@@ -30,12 +30,12 @@ public class ParticipantEntity {
 
     @ManyToOne
     @JoinColumn(name = "trip_id", nullable = false)
-    private TripEntity tripEntity;
+    private Trip trip;
 
-    public ParticipantEntity(String email, TripEntity tripEntity){
+    public Participant(String email, Trip trip){
         this.id = UUID.randomUUID().toString();
         this.email = email;
-        this.tripEntity = tripEntity;
+        this.trip = trip;
         this.isConfirmed = false;
         this.name = "";
     }

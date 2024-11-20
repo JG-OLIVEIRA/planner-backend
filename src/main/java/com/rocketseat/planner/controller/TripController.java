@@ -4,7 +4,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-import com.rocketseat.planner.model.TripEntity;
+import com.rocketseat.planner.exception.InvalidTripDateException;
+import com.rocketseat.planner.model.Trip;
 import com.rocketseat.planner.response.TripResponse;
 import com.rocketseat.planner.request.TripRequestPayload;
 import com.rocketseat.planner.service.TripService;
@@ -51,40 +52,40 @@ public class TripController {
 
     //Trip
     @PostMapping
-    public ResponseEntity<TripResponse> createTrip(@RequestBody TripRequestPayload payload) {
-        TripEntity newTripEntity = tripService.register(new TripEntity(payload));
+    public ResponseEntity<TripResponse> createTrip(@RequestBody TripRequestPayload payload) throws InvalidTripDateException {
+        Trip newTrip = tripService.register(new Trip(payload));
 
-        participantService.registerParticipantsToEvent(payload.emails_to_invite(), newTripEntity);
+        participantService.registerParticipantsToEvent(payload.emails_to_invite(), newTrip);
 
-        return ResponseEntity.ok(new TripResponse(newTripEntity.getId()));
+        return ResponseEntity.ok(new TripResponse(newTrip.getId()));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TripEntity> getTripById(@PathVariable String id){
+    public ResponseEntity<Trip> getTripById(@PathVariable String id){
         return tripService.getById(id).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<TripEntity> updateTrip(@PathVariable String id, @RequestBody TripRequestPayload payload){
+    public ResponseEntity<Trip> updateTrip(@PathVariable String id, @RequestBody TripRequestPayload payload){
         return tripService.getById(id)
                 .map(trip -> {
                     LocalDateTime ends_at = LocalDateTime.parse(payload.ends_at(), DateTimeFormatter.ISO_DATE_TIME);
                     LocalDateTime starts_at = LocalDateTime.parse(payload.starts_at(), DateTimeFormatter.ISO_DATE_TIME);
                     String destination = payload.destination();
 
-                    TripEntity updatedTripEntity = tripService.update(trip, ends_at, starts_at, destination);
+                    Trip updatedTrip = tripService.update(trip, ends_at, starts_at, destination);
 
-                    return ResponseEntity.ok(updatedTripEntity);
+                    return ResponseEntity.ok(updatedTrip);
                 }).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @GetMapping("/{id}/confirm")
-    public ResponseEntity<TripEntity> confirmTrip(@PathVariable String id){
+    public ResponseEntity<Trip> confirmTrip(@PathVariable String id){
         return tripService.getById(id)
                 .map(trip -> {
                     participantService.triggerConfirmationEmailToParticipants(id);
-                    TripEntity updatedTripEntity = tripService.setIsConfirmedTrue(trip);
-                    return ResponseEntity.ok(updatedTripEntity);
+                    Trip updatedTrip = tripService.setIsConfirmedTrue(trip);
+                    return ResponseEntity.ok(updatedTrip);
                 }).orElseGet(() -> ResponseEntity.notFound().build());
     }
 

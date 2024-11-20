@@ -1,6 +1,6 @@
 package com.rocketseat.planner.controller;
 
-import com.rocketseat.planner.model.ParticipantEntity;
+import com.rocketseat.planner.model.Participant;
 import com.rocketseat.planner.request.ParticipantRequestPayload;
 import com.rocketseat.planner.service.ParticipantService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +19,11 @@ public class ParticipantController {
     }
 
     @PostMapping("/{id}/confirm")
-    public ResponseEntity<ParticipantEntity> confirmParticipant(@PathVariable String id, @RequestBody ParticipantRequestPayload payload){
+    public ResponseEntity<Participant> confirmParticipant(@PathVariable String id, @RequestBody ParticipantRequestPayload payload){
         return participantService.getById(id)
-                .map(participantEntity -> {
-                    ParticipantEntity updatedParticipantEntity = participantService.setIsConfirmedTrue(participantEntity, payload.name());
-                    return ResponseEntity.ok(updatedParticipantEntity);
+                .map(participant -> {
+                    Participant updatedParticipant = participantService.setIsConfirmedTrue(participant, payload.name());
+                    return ResponseEntity.ok(updatedParticipant);
                 }).orElseGet(() -> ResponseEntity.notFound().build());
     }
 }
