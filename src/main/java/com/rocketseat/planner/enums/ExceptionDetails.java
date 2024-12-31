@@ -6,7 +6,8 @@ import org.springframework.http.HttpStatus;
 
 public enum ExceptionDetails {
 
-    INVALID_TRIP_DATE_MESSAGE("A data de começo da viagem deveria ser inferior à data de término da viagem", HttpStatus.BAD_REQUEST);
+    INVALID_TRIP_DATE_MESSAGE("A data de começo da viagem dever ser inferior à data de término da viagem", HttpStatus.BAD_REQUEST),
+    INVALID_ACTIVITY_DATE_MESSAGE("A data da atividade deve estar entre as datas da viagem", HttpStatus.BAD_REQUEST);
 
     @Getter
     private final HttpStatus httpStatus;

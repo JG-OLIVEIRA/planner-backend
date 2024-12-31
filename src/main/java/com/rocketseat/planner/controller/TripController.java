@@ -3,7 +3,9 @@ package com.rocketseat.planner.controller;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 
+import com.rocketseat.planner.exception.InvalidActivityDateException;
 import com.rocketseat.planner.exception.InvalidTripDateException;
 import com.rocketseat.planner.model.Trip;
 import com.rocketseat.planner.response.TripResponse;
@@ -91,12 +93,15 @@ public class TripController {
 
     //Activity
     @PostMapping("/{id}/activities")
-    public ResponseEntity<ActivityResponse> createActivity(@PathVariable String id, @RequestBody ActivityRequestPayload payload) {
-        return tripService.getById(id)
-                .map(trip -> {
-                    ActivityResponse activityResponse = activityService.register(payload, trip);
-                    return ResponseEntity.ok(activityResponse);
-                }).orElseGet(() -> ResponseEntity.notFound().build());
+    public ResponseEntity<ActivityResponse> createActivity(@PathVariable String id, @RequestBody ActivityRequestPayload payload) throws InvalidActivityDateException {
+        Optional<Trip> trip = tripService.getById(id);
+
+        if(trip.isPresent()){
+            ActivityResponse activityResponse = activityService.register(payload, trip.get());
+            return ResponseEntity.ok(activityResponse);
+        }
+
+        return ResponseEntity.notFound().build();
     }
 
     @GetMapping("/{id}/activities")

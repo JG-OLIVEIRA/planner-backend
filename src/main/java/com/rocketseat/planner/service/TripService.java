@@ -21,7 +21,7 @@ public class TripService {
         this.repository = repository;
     }
 
-    public Trip register(Trip newTrip) throws InvalidTripDateException {
+    public Trip  register(Trip newTrip) throws InvalidTripDateException {
         LocalDateTime startsAt = newTrip.getStartsAt();
         LocalDateTime endsAt = newTrip.getEndsAt();
 
