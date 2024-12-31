@@ -17,7 +17,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class TripEntity {
+public class Trip {
 
     @Id
     private String id;
@@ -40,7 +40,7 @@ public class TripEntity {
     @Column(name = "owner_email", nullable = false)
     private String ownerEmail;
 
-    public TripEntity(TripRequestPayload data){
+    public Trip(TripRequestPayload data){
         this.id = UUID.randomUUID().toString();
         this.destination = data.destination();
         this.isConfirmed = false;

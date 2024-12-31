@@ -16,7 +16,7 @@ import java.util.UUID;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ActivityEntity {
+public class Activity {
 
     @Id
     private String id;
@@ -29,12 +29,12 @@ public class ActivityEntity {
 
     @ManyToOne
     @JoinColumn(name = "trip_id", nullable = false)
-    private TripEntity tripEntity;
+    private Trip trip;
 
-    public ActivityEntity(String title, String occursAt, TripEntity tripEntity){
+    public Activity(String title, String occursAt, Trip trip){
         this.id = UUID.randomUUID().toString();
         this.title = title;
         this.occursAt = LocalDateTime.parse(occursAt, DateTimeFormatter.ISO_DATE_TIME);
-        this.tripEntity = tripEntity;
+        this.trip = trip;
     }
 }
