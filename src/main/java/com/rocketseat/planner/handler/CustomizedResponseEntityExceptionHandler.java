@@ -1,6 +1,7 @@
 package com.rocketseat.planner.handler;
 
 import com.rocketseat.planner.exception.ExceptionResponse;
+import com.rocketseat.planner.exception.InvalidActivityDateException;
 import com.rocketseat.planner.exception.InvalidTripDateException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +16,8 @@ import java.util.Date;
 @RestController
 public class CustomizedResponseEntityExceptionHandler {
 
-    @ExceptionHandler({InvalidTripDateException.class})
+    @ExceptionHandler({InvalidTripDateException.class,
+            InvalidActivityDateException.class})
     public final ResponseEntity<ExceptionResponse> handlerBadRequestException(
             Exception ex,
             WebRequest webRequest
@@ -26,7 +28,5 @@ public class CustomizedResponseEntityExceptionHandler {
                 new Date()
         );
         return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
-
     }
-
 }

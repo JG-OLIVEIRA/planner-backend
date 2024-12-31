@@ -27,9 +27,9 @@ Projeto realizado durante a  16ª edição do Next Level Week, uma semana de aul
 
 ## Features Extras
 
-- [ ] Adicionar uma validação nos campos de data
+- [x] Adicionar uma validação nos campos de data
    - [x] A data de começo da viagem é inferior à data de término da viagem
-   - [ ] A data de uma atividade está entre as datas da viagem
+   - [x] A data de uma atividade está entre as datas da viagem
 
      **Exemplo:**
      Viagem entre os dias 20 a 25 de julho no Rio de Janeiro
